@@ -39,18 +39,24 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'polls.apps.PollsConfig',
     'demo', # 注册app
-    'tasks',
-    # 'channels',
-    # 'chat',
+    'channels',
+    'chat',
 ]
 
 # 设置ASGI应用
-ASGI_APPLICATION = 'myproject.asgi.application'
+ASGI_APPLICATION = 'djangoProject.asgi.application'
 
 # 设置通道层的通信后台 - 本地测试用
 # 实际生产环境中应该需要使用redis作为后台
 # 还需要安装redis和channels_redis
-# # 生产环境中使用redis做后台，安装channels_redis
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
+
+#
 # CHANNEL_LAYERS = {
 #     "default": {
 #         "BACKEND": "channels_redis.core.RedisChannelLayer",
@@ -61,12 +67,6 @@ ASGI_APPLICATION = 'myproject.asgi.application'
 #     },
 # }
 
-
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer"
-    }
-}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
